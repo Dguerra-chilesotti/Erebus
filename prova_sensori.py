@@ -13,18 +13,18 @@ There you will find the configuration for the robot including each component nam
 '''
 
 # Define the wheels 
-wheel1 = robot.getDevice("wheel1 motor")   # Create an object to control the left wheel
-wheel2 = robot.getDevice("wheel2 motor") # Create an object to control the right wheel
+wheel1 = robot.getDevice("wheel1")   # Create an object to control the left wheel
+wheel2 = robot.getDevice("wheel2") # Create an object to control the right wheel
 
 # Set the wheels to have infinite rotation 
 wheel1.setPosition(float("inf"))       
 wheel2.setPosition(float("inf"))
 
 # Define distance sensors
-s1 = robot.getDevice("ps5")
-s2 = robot.getDevice("ps7")
-s3 = robot.getDevice("ps0")
-s4 = robot.getDevice("ps2")
+s1 = robot.getDevice("distance sensor1")
+s2 = robot.getDevice("distance sensor2")
+s3 = robot.getDevice("distance sensor3")
+s4 = robot.getDevice("distance sensor4")
 
 '''
 The names ps0, ps2, etc corresponds to the distance sensors located on the e-puck robot. 
