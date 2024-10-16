@@ -65,23 +65,5 @@ while robot.step(timeStep) != -1:
     # For any sensor its readings are obtained via the .getValue() funciton. 
     print(numToBlock(s1.getValue()),numToBlock(s2.getValue()),numToBlock(s3.getValue()),numToBlock(s4.getValue()))
     
-    # pre-set each wheel velocity
-    speed1 = max_velocity
-    speed2 = max_velocity
 
-
-    # Very simple (but also poor) strategy to demonstrate simple motion
-    if s1.getValue() < 0.1:
-        speed2 = max_velocity/2
-    
-    if s4.getValue() < 0.1:
-        speed1 = max_velocity/2
-    
-    if s2.getValue() < 0.1:
-            speed1 = max_velocity
-            speed2 = -max_velocity
-        
-    # Set the wheel velocity 
-    wheel1.setVelocity(speed1)              
-    wheel2.setVelocity(speed2)
     
