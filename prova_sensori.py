@@ -71,32 +71,34 @@ def numToBlock(num):
     elif num > 0:
         return '█'
 
-def go_to(direction):
+def go_to(direction):#funzione che come argomento ha la direzione del robot
     speed1 = max_velocity   
     speed2 = max_velocity
     sum = 0
     Degree = 90
     if direction == 'foward':
-        while sum < Degree*1/0.0005:
-            sum += radToDegreepersecond(0)
-            speed1 = max_velocity
-            speed2 = max_velocity
+        speed1 = max_velocity
+        speed2 = max_velocity
         print('foward :)')
+
     if direction == 'backward':
         speed1 = -max_velocity
         speed2 = -max_velocity
+    
     if direction == 'right':
         while sum < Degree*1/0.0005:
             sum += radToDegreepersecond(0)
             speed1 = max_velocity
             speed2 = -max_velocity
-        #go_to("foward")
+        
+    
     if direction == 'left':
         while sum < Degree*1/0.0005:
             sum += radToDegreepersecond(0)
             speed1 = -max_velocity
             speed2 = max_velocity
-        #go_to("foward")
+        
+    
     if direction == 'rotate':
             speed1 = max_velocity
             speed2 = -max_velocity
@@ -114,10 +116,10 @@ while robot.step(timeStep) != -1:
     # Display distance values of the sensors
     # For any sensor its readings are obtained via the .getValue() funciton. 
     print(numToBlock(s1.getValue()),numToBlock(s2.getValue()),numToBlock(s3.getValue()),numToBlock(s4.getValue()))
-    print(radToDegree(0),radToDegree(1),radToDegree(2))
+    print(radToDegreepersecond(0),radToDegreepersecond(1),radToDegreepersecond(2))
    
-    go_to('foward')
-   # go_to('left')
+    #go_to('foward')
+    go_to('left')
     
   
     
