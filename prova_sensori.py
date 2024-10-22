@@ -1,4 +1,7 @@
 from controller import Robot
+import math
+import time
+python_pi = math.pi
 
 timeStep = 32            # Set the time step for the simulation
 max_velocity = 6.28      # Set a maximum velocity time constant
@@ -13,8 +16,10 @@ There you will find the configuration for the robot including each component nam
 '''
 
 # Define the wheels 
-wheel1 = robot.getDevice("wheel1")   # Create an object to control the left wheel
-wheel2 = robot.getDevice("wheel2") # Create an object to control the right wheel
+wheel1 = robot.getDevice("wheel1 motor")   # Create an object to control the left wheel
+wheel2 = robot.getDevice("wheel2 motor") # Create an object to control the right wheel
+
+
 
 # Set the wheels to have infinite rotation 
 wheel1.setPosition(float("inf"))       
@@ -25,6 +30,7 @@ s1 = robot.getDevice("distance sensor1")
 s2 = robot.getDevice("distance sensor2")
 s3 = robot.getDevice("distance sensor3")
 s4 = robot.getDevice("distance sensor4")
+
 
 '''
 The names ps0, ps2, etc corresponds to the distance sensors located on the e-puck robot. 
@@ -38,6 +44,13 @@ s2.enable(timeStep)
 s3.enable(timeStep)
 s4.enable(timeStep)
 
+#Define the Gyro and enable it
+gyro = robot.getDevice("gyro")
+gyro.enable(timeStep)
+
+ # pre-set each wheel velocity
+speed1 = max_velocity
+speed2 = max_velocity
 
 # Mini visualiser for the distance sensors on the console
 def numToBlock(num):
@@ -59,24 +72,56 @@ def numToBlock(num):
         return '█'
 
 def go_to(direction):
+    speed1 = max_velocity   
+    speed2 = max_velocity
+    sum = 0
+    Degree = 90
     if direction == 'foward':
-        speed1 = max_velocity
-        speed2 = max_velocity
-    elif direction == 'backward':
+        while sum < Degree*1/0.0005:
+            sum += radToDegreepersecond(0)
+            speed1 = max_velocity
+            speed2 = max_velocity
+        print('foward :)')
+    if direction == 'backward':
         speed1 = -max_velocity
         speed2 = -max_velocity
+    if direction == 'right':
+        while sum < Degree*1/0.0005:
+            sum += radToDegreepersecond(0)
+            speed1 = max_velocity
+            speed2 = -max_velocity
+        #go_to("foward")
+    if direction == 'left':
+        while sum < Degree*1/0.0005:
+            sum += radToDegreepersecond(0)
+            speed1 = -max_velocity
+            speed2 = max_velocity
+        #go_to("foward")
+    if direction == 'rotate':
+            speed1 = max_velocity
+            speed2 = -max_velocity
     
     wheel1.setVelocity(speed1)              
     wheel2.setVelocity(speed2)
-
-
+    
+    
+def radToDegreepersecond(dir) :
+    axis = gyro.getValues()
+    return ((axis[dir])*180)/python_pi
 
 start = robot.getTime()
 while robot.step(timeStep) != -1:
     # Display distance values of the sensors
     # For any sensor its readings are obtained via the .getValue() funciton. 
     print(numToBlock(s1.getValue()),numToBlock(s2.getValue()),numToBlock(s3.getValue()),numToBlock(s4.getValue()))
-    #vr0001 of trying making movement in the maze and making simple function that help movement as go(position) ect
+    print(radToDegree(0),radToDegree(1),radToDegree(2))
+   
+    go_to('foward')
+   # go_to('left')
     
-
+  
+    
+    #vr0001 of trying making movement in the maze and making simple function that help movement as go(position) ect
+if(robot.step(timeStep)== -1):   
+    print("errrore madornale :)")
     
