@@ -58,12 +58,25 @@ def numToBlock(num):
     elif num > 0:
         return '█'
 
+def go_to(direction):
+    if direction == 'foward':
+        speed1 = max_velocity
+        speed2 = max_velocity
+    elif direction == 'backward':
+        speed1 = -max_velocity
+        speed2 = -max_velocity
+    
+    wheel1.setVelocity(speed1)              
+    wheel2.setVelocity(speed2)
+
+
 
 start = robot.getTime()
 while robot.step(timeStep) != -1:
     # Display distance values of the sensors
     # For any sensor its readings are obtained via the .getValue() funciton. 
     print(numToBlock(s1.getValue()),numToBlock(s2.getValue()),numToBlock(s3.getValue()),numToBlock(s4.getValue()))
+    #vr0001 of trying making movement in the maze and making simple function that help movement as go(position) ect
     
 
     
