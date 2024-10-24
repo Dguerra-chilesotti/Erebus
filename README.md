@@ -1,2 +1,2 @@
 # Erebus
-problemi con lintero codice
+problemi con l'intero codice
