@@ -76,23 +76,23 @@ def go_to(direction):#funzione che come argomento ha la direzione del robot
     speed2 = max_velocity
     sum = 0
     Degree = 90
-    if direction == 'foward':
+    if direction == 'f':
         speed1 = max_velocity
         speed2 = max_velocity
         print('foward :)')
 
-    if direction == 'backward':
+    if direction == 'b':
         speed1 = -max_velocity
         speed2 = -max_velocity
     
-    if direction == 'right':
+    if direction == 'r':
         while sum < Degree*1/0.0005:
             sum += radToDegreepersecond(0)
             speed1 = max_velocity
             speed2 = -max_velocity
         
     
-    if direction == 'left':
+    if direction == 'l':
         while sum < Degree*1/0.0005:
             sum += radToDegreepersecond(0)
             speed1 = -max_velocity
@@ -111,19 +111,40 @@ def radToDegreepersecond(dir) :
     axis = gyro.getValues()
     return ((axis[dir])*180)/python_pi
 
+states=["1 go FWD", 
+        "2 spin CW"]
+state=1                             # starting state of FSM
+prestate=0                        # previous state 
 start = robot.getTime()
+timeZero=start
 while robot.step(timeStep) != -1:
     # Display distance values of the sensors
     # For any sensor its readings are obtained via the .getValue() funciton. 
     print(numToBlock(s1.getValue()),numToBlock(s2.getValue()),numToBlock(s3.getValue()),numToBlock(s4.getValue()))
     print(radToDegreepersecond(0),radToDegreepersecond(1),radToDegreepersecond(2))
-   
+    go_to('l')
+    print('90° completati')
+
+    ''' if (state!=prestate):
+        timeZero=robot.getTime()
+        prestate=state
+    print("stato:",states[state],"da",timeZero)
+    print("tempo nello stato", state,":",robot.getTime()-timeZero)
     #go_to('foward')
-    go_to('left')
+    if(state == 1):
+        go_to('left')
+        if robot.getTime()-timeZero>3:
+            state = 2
+    elif(state == 2):
+        go_to('foward')
+        if robot.getTime()-timeZero>0.2:
+           state = 1
+            
+    '''
     
   
     
     #vr0001 of trying making movement in the maze and making simple function that help movement as go(position) ect
-if(robot.step(timeStep)== -1):   
-    print("errrore madornale :)")
+#if(robot.step(timeStep)== -1):   
+#    print("errrore madornale :)")
     
